@@ -82,59 +82,66 @@ export const userRegister = (req, res) => {
 
   // TODO: hashing pw or hashing pw in client side.
 
-  User.findOrCreate({
-    where: {
-      id
-    },
-    defaults: {
-      pw,
-      email_id,
-      email_domain,
-      is_mailing,
-      name,
-      ename,
-      birth_y,
-      birth_m,
-      birth_d,
-      cp_no1,
-      cp_no2,
-      cp_no3,
-      tel_no1,
-      tel_no2,
-      tel_no3,
-      fax_no1,
-      fax_no2,
-      fax_no3,
-      usertype,
-      job,
-      dept,
-      position,
-      instit_job,
-      recommender,
-      is_stay_in_korea,
-      zipcode,
-      road_addr,
-      addr,
-      has_organization,
-      organization,
-      is_korean
-    }
-  }).then(([user, created]) => {
-    // If there is user with that id already, then created will be false.
+  try {
+    User.findOrCreate({
+      where: {
+        id
+      },
+      defaults: {
+        pw,
+        email_id,
+        email_domain,
+        is_mailing,
+        name,
+        ename,
+        birth_y,
+        birth_m,
+        birth_d,
+        cp_no1,
+        cp_no2,
+        cp_no3,
+        tel_no1,
+        tel_no2,
+        tel_no3,
+        fax_no1,
+        fax_no2,
+        fax_no3,
+        usertype,
+        job,
+        dept,
+        position,
+        instit_job,
+        recommender,
+        is_stay_in_korea,
+        zipcode,
+        road_addr,
+        addr,
+        has_organization,
+        organization,
+        is_korean
+      }
+    }).then(([user, created]) => {
+      // If there is user with that id already, then created will be false.
 
-    if (created) {
-      // When success creating new user.
-      res.json({
-        ok: true,
-        error: null
-      });
-    } else {
-      // When fail creating new user.
-      res.json({
-        ok: false,
-        error:
-          "새로운 유저를 만드는데에 실패하였습니다. 기입 내용을 다시 한 번 확인해주세요. "
-      });
-    }
-  });
+      if (created) {
+        // When success creating new user.
+        res.json({
+          ok: true,
+          error: null
+        });
+      } else {
+        // When fail creating new user.
+        res.json({
+          ok: false,
+          error:
+            "새로운 유저를 만드는데에 실패하였습니다. 기입 내용을 다시 한 번 확인해주세요. "
+        });
+      }
+    });
+  } catch (err) {
+    res.json({
+      ok: false,
+      error: err.message
+    });
+  }
 };
