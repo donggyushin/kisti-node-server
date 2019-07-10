@@ -1,6 +1,27 @@
 import User from "../models/user";
 import checkPassword from "../utils/checkpassword";
-import { generatingToken } from "../utils/jsonwebtoken";
+import { generatingToken, decodeToken } from "../utils/jsonwebtoken";
+
+export const userLevel = async (req, res) => {
+  const token = req.header("token");
+  const userId = await decodeToken(token);
+  const user = await User.findByPk(userId);
+
+  if (user == null) {
+    res.json({
+      ok: false,
+      error: "접근 권한이 없는 요청입니다. 로그인을 다시 해주세요. ",
+      userLevel: null
+    });
+  }
+
+  const userLevel = user.user_level;
+  res.json({
+    ok: true,
+    error: null,
+    userLevel
+  });
+};
 
 export const login = async (req, res) => {
   const { id, pw } = req.body;

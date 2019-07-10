@@ -12,7 +12,12 @@ const DB_CONNECTION_POOL_OPTIONS = {
 const DB_CONNECTION_OPTIONS = {
   host: "localhost",
   dialect: "mysql",
-  pool: DB_CONNECTION_POOL_OPTIONS
+  pool: DB_CONNECTION_POOL_OPTIONS,
+  define: {
+    charset: "utf8",
+    collate: "utf8_general_ci",
+    timestamps: true
+  }
 };
 
 const sequelize = new Sequelize(

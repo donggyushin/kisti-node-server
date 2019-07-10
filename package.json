@@ -7,10 +7,12 @@
   "scripts": {
     "dev": "nodemon src/index.js --exec babel-node",
     "build": "babel --presets es2015 -d build/ src",
-    "start": "node build/index.js"
+    "start": "node build/index.js",
+    "devp": "babel-node src/index.js &"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "http-proxy-middleware": "^0.19.1",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.1",
     "mysql2": "^1.6.5",
