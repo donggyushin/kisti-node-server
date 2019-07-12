@@ -1,8 +1,22 @@
 import Sequelize from "sequelize";
 
-const DATABASE_NAME = "kisti";
-const USER_NAME = "root";
-const PASSWORD = "1234";
+var env = process.env.NODE_ENV || "production";
+console.log("env: ", env);
+
+let DATABASE_NAME = "";
+let USER_NAME = "";
+let PASSWORD = "";
+
+if (env == "production") {
+  DATABASE_NAME = "kisti";
+  USER_NAME = "kisti";
+  PASSWORD = "qmffhrcPdls!2";
+} else {
+  DATABASE_NAME = "kisti";
+  USER_NAME = "root";
+  PASSWORD = "1234";
+}
+
 const DB_CONNECTION_POOL_OPTIONS = {
   max: 5,
   min: 0,
