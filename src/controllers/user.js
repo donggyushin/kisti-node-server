@@ -9,8 +9,8 @@ export const userLevel = async (req, res) => {
 
   if (user == null) {
     res.json({
-      ok: false,
-      error: "접근 권한이 없는 요청입니다. 로그인을 다시 해주세요. ",
+      ok: true,
+      error: null,
       userLevel: null
     });
   }
