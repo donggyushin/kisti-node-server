@@ -18,7 +18,7 @@ const User = sequelize.define("user", {
   email_id: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
+    unique: false,
     validate: {
       len: [2, 24]
     }
@@ -46,7 +46,7 @@ const User = sequelize.define("user", {
     type: Sequelize.STRING,
     allowNull: true,
     validate: {
-      len: [1, 24]
+      len: [0, 24]
     }
   },
   birth_y: {
