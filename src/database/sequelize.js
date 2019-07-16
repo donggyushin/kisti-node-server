@@ -30,7 +30,7 @@ const DB_CONNECTION_POOL_OPTIONS = {
   idle: 10000
 };
 const DB_CONNECTION_OPTIONS = {
-  host: "localhost",
+  host: HOST,
   dialect: "mysql",
   pool: DB_CONNECTION_POOL_OPTIONS,
   define: {
