@@ -13,6 +13,7 @@ export const userLevel = async (req, res) => {
       error: null,
       userLevel: null
     });
+    return;
   }
 
   const userLevel = user.user_level;

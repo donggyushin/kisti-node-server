@@ -6,11 +6,17 @@ console.log("env: ", env);
 let DATABASE_NAME = "";
 let USER_NAME = "";
 let PASSWORD = "";
+let HOST = "localhost";
 
 if (env == "production") {
   DATABASE_NAME = "kisti";
   USER_NAME = "kisti";
   PASSWORD = "qmffhrcPdls!2";
+} else if (env == "second") {
+  DATABASE_NAME = "kisti";
+  USER_NAME = "kisti";
+  PASSWORD = "qmffhrcPdls!2";
+  HOST = "210.119.129.77";
 } else {
   DATABASE_NAME = "kisti";
   USER_NAME = "root";
@@ -45,6 +51,6 @@ sequelize
   .then(() => console.log("DB connection has been established successfully"))
   .catch(err => console.log("Unable to connect to the database: ", err));
 
-sequelize.sync({ force: false });
+sequelize.sync({ force: true });
 
 export default sequelize;
