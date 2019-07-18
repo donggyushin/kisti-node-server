@@ -10,14 +10,14 @@ const User = sequelize.define("user", {
   },
   pw: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       len: [2, 32]
     }
   },
   email_id: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: false,
     validate: {
       len: [2, 24]
@@ -25,19 +25,19 @@ const User = sequelize.define("user", {
   },
   email_domain: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       len: [2, 24]
     }
   },
   is_mailing: {
     type: Sequelize.BOOLEAN,
-    allowNull: false,
+    allowNull: true,
     defaultValue: true
   },
   name: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       len: [1, 24]
     }
@@ -51,15 +51,15 @@ const User = sequelize.define("user", {
   },
   birth_y: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   birth_m: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   birth_d: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   cp_no1: {
     type: Sequelize.STRING,
@@ -126,7 +126,7 @@ const User = sequelize.define("user", {
   },
   usertype: {
     type: Sequelize.TINYINT,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 6,
     validate: {
       isIn: [[1, 7, 2, 3, 6]]
@@ -157,7 +157,7 @@ const User = sequelize.define("user", {
   },
   is_stay_in_korea: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     defaultValue: "국내",
     validate: {
       isIn: [["국내", "국외"]]
@@ -165,21 +165,21 @@ const User = sequelize.define("user", {
   },
   zipcode: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       len: [4, 5]
     }
   },
   road_addr: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   addr: {
     type: Sequelize.STRING
   },
   has_organization: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     defaultValue: "개인",
     validate: {
       isIn: [["기관", "개인"]]
@@ -191,7 +191,7 @@ const User = sequelize.define("user", {
   },
   is_korean: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     defaultValue: "내국인",
     validate: {
       isIn: [["내국인", "외국인"]]
@@ -199,7 +199,7 @@ const User = sequelize.define("user", {
   },
   user_level: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     defaultValue: "normal",
     validate: {
       isIn: [["normal", "agencyAdmin", "intergrated"]]
