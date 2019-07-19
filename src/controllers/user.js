@@ -2,6 +2,37 @@ import User from "../models/user";
 import checkPassword from "../utils/checkpassword";
 import { generatingToken, decodeToken } from "../utils/jsonwebtoken";
 
+export const useridDoubleCheck = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const user = await User.findOne({
+      where: {
+        id
+      }
+    });
+
+    if (user == null) {
+      res.json({
+        ok: true,
+        error: null
+      });
+      return;
+    } else {
+      res.json({
+        ok: false,
+        error: "이미 존재하는 아이디입니다. 다른 아이디를 선택해주세요. "
+      });
+      return;
+    }
+  } catch (err) {
+    res.json({
+      ok: false,
+      error: "서버 에러"
+    });
+    return;
+  }
+};
+
 export const userLevel = async (req, res) => {
   const token = req.header("token");
   const userId = await decodeToken(token);
@@ -22,6 +53,7 @@ export const userLevel = async (req, res) => {
     error: null,
     userLevel
   });
+  return;
 };
 
 export const login = async (req, res) => {
@@ -33,6 +65,7 @@ export const login = async (req, res) => {
       error: "존재하지 않는 아이디입니다. ",
       token: null
     });
+    return;
   } else {
     // found user.
 
@@ -48,12 +81,14 @@ export const login = async (req, res) => {
           error: "로그인에 실패하였습니다. 이용에 불편을 드려서 죄송합니다.",
           token: null
         });
+        return;
       } else {
         res.json({
           ok: true,
           error: null,
           token
         });
+        return;
       }
     } else {
       // wrong password
@@ -62,6 +97,7 @@ export const login = async (req, res) => {
         error: "비밀번호가 일치하지 않습니다. ",
         token: null
       });
+      return;
     }
   }
 };
@@ -176,6 +212,7 @@ export const userRegister = (req, res) => {
           ok: true,
           error: null
         });
+        return;
       } else {
         // When fail creating new user.
         res.json({
@@ -183,6 +220,7 @@ export const userRegister = (req, res) => {
           error:
             "새로운 유저를 만드는데에 실패하였습니다. 기입 내용을 다시 한 번 확인해주세요. "
         });
+        return;
       }
     });
   } catch (err) {
@@ -191,5 +229,6 @@ export const userRegister = (req, res) => {
       ok: false,
       error: err.message
     });
+    return;
   }
 };
