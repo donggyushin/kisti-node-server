@@ -40,8 +40,8 @@ export const userLevel = async (req, res) => {
 
   if (user == null) {
     res.json({
-      ok: true,
-      error: null,
+      ok: false,
+      error: "잘못된 유저 정보입니다. 다시 한 번 로그인해주세요. ",
       userLevel: null
     });
     return;
