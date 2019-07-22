@@ -2,6 +2,84 @@ import User from "../models/user";
 import checkPassword from "../utils/checkpassword";
 import { generatingToken, decodeToken } from "../utils/jsonwebtoken";
 
+export const getAllAgencyManager = async (req, res) => {
+  const requester_token = req.header("token");
+  const requester_id = await decodeToken(requester_token);
+  const requester = await User.findByPk(requester_id);
+
+  if (requester.user_level !== "intergrated") {
+    res.json({
+      ok: false,
+      error: "접근 권한이 없습니다. ",
+      users: null
+    });
+    return;
+  }
+
+  try {
+    const users = await User.findAll({
+      attributes: ["id", "name", "ename", "user_level"],
+      where: {
+        user_level: "agencyAdmin"
+      }
+    });
+
+    res.json({
+      ok: true,
+      error: null,
+      users
+    });
+    return;
+  } catch (err) {
+    res.json({
+      ok: false,
+      error: "서버에서 에러 발생",
+      users: null
+    });
+    console.log(err);
+    return;
+  }
+};
+
+export const getAllNormalUsers = async (req, res) => {
+  const requester_token = req.header("token");
+  const requester_id = await decodeToken(requester_token);
+  const requester = await User.findByPk(requester_id);
+
+  if (requester.user_level !== "intergrated") {
+    res.json({
+      ok: false,
+      error: "접근 권한이 없습니다. ",
+      users: null
+    });
+    return;
+  }
+
+  try {
+    const users = await User.findAll({
+      attributes: ["id", "name", "ename", "user_level"],
+      where: {
+        user_level: "normal"
+      }
+    });
+
+    res.json({
+      ok: true,
+      error: null,
+      users
+    });
+    return;
+  } catch (err) {
+    res.json({
+      ok: false,
+      error: "서버에서 에러 발생",
+      users: null
+    });
+    console.log(err);
+    return;
+  }
+};
+
 export const useridDoubleCheck = async (req, res) => {
   const { id } = req.body;
   try {
