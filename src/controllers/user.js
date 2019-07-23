@@ -2,6 +2,72 @@ import User from "../models/user";
 import checkPassword from "../utils/checkpassword";
 import { generatingToken, decodeToken } from "../utils/jsonwebtoken";
 
+export const removeAgencyManager = async (req, res) => {
+  const requester_token = req.header("token");
+  const requester_id = await decodeToken(requester_token);
+  const requester = await User.findByPk(requester_id);
+
+  if (requester.user_level !== "intergrated") {
+    res.json({
+      ok: false,
+      error: "접근 권한이 없습니다. "
+    });
+    return;
+  }
+
+  try {
+    const { id } = req.body;
+    const user = await User.findByPk(id);
+    user.user_level = "normal";
+    await user.save();
+    res.json({
+      ok: true,
+      error: null
+    });
+    return;
+  } catch (err) {
+    console.log(err);
+    res.json({
+      ok: false,
+      error: "유저 업데이트에 실패하였습니다. "
+    });
+    return;
+  }
+};
+
+export const addAgencyManager = async (req, res) => {
+  const requester_token = req.header("token");
+  const requester_id = await decodeToken(requester_token);
+  const requester = await User.findByPk(requester_id);
+
+  if (requester.user_level !== "intergrated") {
+    res.json({
+      ok: false,
+      error: "접근 권한이 없습니다. "
+    });
+    return;
+  }
+
+  try {
+    const { id } = req.body;
+    const user = await User.findByPk(id);
+    user.user_level = "agencyAdmin";
+    await user.save();
+    res.json({
+      ok: true,
+      error: null
+    });
+    return;
+  } catch (err) {
+    console.log(err);
+    res.json({
+      ok: false,
+      error: "유저 업데이트에 실패하였습니다. "
+    });
+    return;
+  }
+};
+
 export const getAllAgencyManager = async (req, res) => {
   const requester_token = req.header("token");
   const requester_id = await decodeToken(requester_token);
