@@ -8,6 +8,10 @@ const User = sequelize.define("user", {
       len: [2, 24]
     }
   },
+  registerBoolean: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   pw: {
     type: Sequelize.STRING,
     allowNull: true,
