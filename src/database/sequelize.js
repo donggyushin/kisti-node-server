@@ -51,6 +51,6 @@ sequelize
   .then(() => console.log("DB connection has been established successfully"))
   .catch(err => console.log("Unable to connect to the database: ", err));
 
-sequelize.sync({ force: false });
+sequelize.sync({ force: true });
 
 export default sequelize;

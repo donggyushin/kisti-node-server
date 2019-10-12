@@ -8,10 +8,12 @@ import {
   getAllNormalUsers,
   getAllAgencyManager,
   addAgencyManager,
-  removeAgencyManager
+  removeAgencyManager,
+  getUserInfo
 } from "../controllers/user";
 const router = express.Router();
 
+router.get("/user", getUserInfo);
 router.post("/regist", formdataMiddleware, userRegister);
 router.post("/login", formdataMiddleware, login);
 router.get("/level", userLevel);

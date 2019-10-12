@@ -8,6 +8,9 @@ const User = sequelize.define("user", {
       len: [2, 24]
     }
   },
+  scienceId: {
+    type: Sequelize.STRING
+  },
   registerBoolean: {
     type: Sequelize.BOOLEAN,
     defaultValue: false

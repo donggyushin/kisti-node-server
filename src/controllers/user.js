@@ -2,6 +2,26 @@ import User from "../models/user";
 import checkPassword from "../utils/checkpassword";
 import { generatingToken, decodeToken } from "../utils/jsonwebtoken";
 
+export const getUserInfo = async (req, res) => {
+  const requester_token = req.header("token");
+  try {
+    const requester_id = await decodeToken(requester_token);
+    const requester = await User.findByPk(requester_id);
+
+    res.json({
+      ok: true,
+      error: null,
+      user: requester
+    });
+  } catch (err) {
+    res.json({
+      ok: false,
+      error: err.message,
+      user: null
+    });
+  }
+};
+
 export const removeAgencyManager = async (req, res) => {
   const requester_token = req.header("token");
   const requester_id = await decodeToken(requester_token);
@@ -279,7 +299,8 @@ export const userRegister = (req, res) => {
     addr,
     has_organization,
     organization,
-    is_korean
+    is_korean,
+    scienceId
   } = req.body;
   console.log("id:", id);
   console.log("pw:", pw);
@@ -345,7 +366,8 @@ export const userRegister = (req, res) => {
         has_organization,
         organization,
         is_korean,
-        user_level: "normal"
+        user_level: "normal",
+        scienceId
       }
     }).then(([user, created]) => {
       // If there is user with that id already, then created will be false.
